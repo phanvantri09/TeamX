@@ -1,7 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\HomeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,12 +19,16 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('login');
 });
+Route::controller(HomeController::class)->group(function () {
+    Route::get('/','home')->name('home');
+});
+
 Route::controller(AuthController::class)->group(function () {
     Route::get('/login','login')->name('login');
     Route::post('/login','loginPost')->name('login');
     Route::get('/logout', 'logout')->name('logout');
 });
-Route::group(['prefix' => 'admin', 'middleware'=>['CheckLoginUser']], function () {
+Route::group(['prefix' => 'admin', 'middleware'=>['CheckAdmin']], function () {
 
     Route::group(['prefix' => 'blog', 'as' =>'blog.'], function () {
         Route::controller(BlogController::class)->group(function () {
@@ -62,25 +69,32 @@ Route::group(['prefix' => 'admin', 'middleware'=>['CheckLoginUser']], function (
         });
     });
     Route::group(['prefix' => 'transaction', 'as' =>'transaction.'], function () {
+        try {
         Route::controller(TransactionController::class)->group(function () {
             // danh sách
-            Route::get('/','index')->name('index');
+
+                Route::get('/tri','index')->name('index');
+
+
 
             // thêm
-            Route::get('/add', 'create')->name('add');
-            Route::post('/add', 'store')->name('addPost');
+            // Route::get('/add', 'create')->name('add');
+            // Route::post('/add', 'store')->name('addPost');
 
-            //sửa
-            Route::get('edit/{id}','edit')->name('edit');
-            Route::post('edit/{id}','update')->name('editPost');
-            // xóa
-            Route::get('/delete/{id}', 'destroy')->name('delete');
+            // //sửa
+            // Route::get('edit/{id}','edit')->name('edit');
+            // Route::post('edit/{id}','update')->name('editPost');
+            // // xóa
+            // Route::get('/delete/{id}', 'destroy')->name('delete');
 
-            // hiển thị tất cả
-            Route::get('/show/{id}', 'show')->name('show');
+            // // hiển thị tất cả
+            // Route::get('/show/{id}', 'show')->name('show');
 
             Route::get('change_status/{id}/{status}','changeStatus')->name('changeStatus');
         });
+    } catch (\Throwable $th) {
+        dd($th);
+   }
     });
     Route::group(['prefix' => 'brand', 'as' =>'brand.'], function () {
         Route::controller(BrandController::class)->group(function () {

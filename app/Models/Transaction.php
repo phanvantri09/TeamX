@@ -17,4 +17,8 @@ class Transaction extends Model
         'img',
         'type',
     ];
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(Brand::class, 'id_user');
+    }
 }

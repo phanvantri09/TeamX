@@ -12,9 +12,13 @@ class Service extends Model
 
     protected $fillable = [
         'id_brand',
-        'email',
         'content',
         'name',
         'price',
     ];
+    public function brands(): BelongsTo
+    {
+        return $this->belongsTo(Brand::class, 'id_brand');
+    }
+
 }

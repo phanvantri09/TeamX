@@ -13,4 +13,9 @@ class Brand extends Model
         'name',
         'code',
     ];
+
+    public function services(): HasMany
+    {
+        return $this->hasMany(Service::class);
+    }
 }

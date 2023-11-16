@@ -4,62 +4,55 @@ namespace App\Http\Controllers;
 
 use App\Models\Service;
 use Illuminate\Http\Request;
+use App\Repositories\ServiceRepositoryInterface;
+use App\Http\Requests\Service\CreateRequestService;
+use App\Http\Requests\Service\UpdateRequestService;
+
 
 class ServiceController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    protected $ServiceRepository;
+
+    public function __construct(ServiceRepositoryInterface $ServiceRepository)
+    {
+        $this->ServiceRepository = $ServiceRepository;
+    }
+
     public function index()
     {
-        //
+        $data = $this->ServiceRepository->all();
+        return view('admin.service.list', compact('data'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        return view('admin.service.add');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function store(CreateRequestService $request)
     {
-        //
+
+        $data = $request->all();
+        $this->ServiceRepository->create($data);
+        return redirect()->route('service.index')->with('success', 'Thành công');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Service $service)
+    public function edit($id)
     {
-        //
+        $data = $this->ServiceRepository->show($id);
+        return view('admin.service.edit', compact('data'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Service $service)
+    public function update(UpdateRequestService $request, $id)
     {
-        //
+        $data = $request->all();
+        $this->ServiceRepository->update($data, $id);
+        return redirect()->route('service.index')->with('success', 'Thành công');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Service $service)
+    public function destroy($id)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Service $service)
-    {
-        //
+        $this->ServiceRepository->delete($id);
+        return redirect()->route('service.index')->with('success', 'Xóa thành công');
     }
 }

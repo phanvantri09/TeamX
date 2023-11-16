@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('services', function (Blueprint $table) {
             $table->id();
             $table->integer('id_brand')->nullable();
-            $table->string('email')->unique();
             $table->string('name')->unique();
             $table->text('content')->nullable();
             $table->integer('price')->comment('it nhất là 100, hệ số là price đại diện cho số lượng 100 từ đó nhân hệ số từ input nta nhập vào');

@@ -4,15 +4,24 @@ namespace App\Http\Controllers;
 
 use App\Models\Transaction;
 use Illuminate\Http\Request;
+use App\Repositories\TransactionRepositoryInterface;
 
 class TransactionController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    protected $transactionRepository;
+    public function __construct(TransactionRepositoryInterface $transactionRepository)
     {
-        //
+        $this->transactionRepository = $transactionRepository;
+    }
+
+    public function index(Request $request)
+    {
+        // if ($request->has('type')) {
+        //     $getAllTrans = $this->transactionRepository->getByStatus($request->type);
+        // } else {
+        //     $getAllTrans = $this->transactionRepository->all();
+        // }
+        return view('admin.transaction.list', compact('getAllTrans'));
     }
 
     /**
