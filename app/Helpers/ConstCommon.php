@@ -11,7 +11,6 @@ use App\Mail\SendLinkMail;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Transaction;
-use App\Models\Brand;
 class ConstCommon {
     const ListTypeUser = ['user'=>111, 'admin'=>222];
     const TypeUser = 111;
@@ -20,7 +19,7 @@ class ConstCommon {
     const ListStatusTransaction = ['1'=>"Vừa book",  '2'=>"đã chấp nhận đang chạy", '3'=>"Chạy đã xong hoàn thành", '4'=>"từ chối", ];
     // 1 là của service, 2 nộp , 3 rút
     const ListTypeTransaction = ['1'=>"service",  '2'=>"nộp", '3'=>"rút"];
-
+    
     public static function addImageToStorage($file, $name ){
         $file->storeAs('images', $name, 'public');
     }
@@ -48,8 +47,5 @@ class ConstCommon {
         $product = product::find($id);
         $product->view = $product->view+1;
         return $product->save();
-    }
-    public static function AllBrand(){
-        return Brand::all();
     }
 }
