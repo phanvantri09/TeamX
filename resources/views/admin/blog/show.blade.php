@@ -16,15 +16,15 @@
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
-                    <form action="{{ route('blog.addPost') }}" method="post" enctype="multipart/form-data">
+                    <form action="" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="row">
                             <div class="col-sm-12">
                                 <!-- text input -->
                                 <div class="form-group">
                                     <label>Tiêu đề</label>
-                                    <input type="text" name="name" class="form-control" placeholder="Enter ..."
-                                        value="{{ old('name') }}">
+                                    <input readonly type="text" name="name" class="form-control" placeholder="Enter ..."
+                                        value="{{ $contentShow->name }}">
                                     @error('name')
                                         <div class="alert alert-danger">{{ $errors->first('name') }}</div>
                                     @enderror
@@ -34,30 +34,14 @@
                                 <div class="form-group">
                                     <label>Nội dung </label>
 
-                                    <textarea id="summernote" class="form-control" name="content" rows="3" placeholder="Enter ...">
-                                        {{ empty(old('content')) ? '' : old('content') }}
-                                    </textarea>
+                                    {!! $contentShow->content !!}
                                     @error('content')
                                         <div class="alert alert-danger">{{ $errors->first('content') }}</div>
                                     @enderror
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <!-- select -->
-                                <div class="form-group">
-                                    <label>ảnh</label>
-                                    <input type="file" name="img" class="form-control">
-                                </div>
-                            </div>
-                            @error('img')
-                                <div class="alert alert-danger">{{ $errors->first('img') }}</div>
-                            @enderror
-                        </div>
-                        <div class="card-footer">
-                            <button type="submit" class="btn btn-primary">Lưu lại</button>
-                        </div>
+                        
                     </form>
                 </div>
                 <!-- /.card-body -->

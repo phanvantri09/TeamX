@@ -1,7 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\BlogController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,7 +24,10 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('/login','loginPost')->name('login');
     Route::get('/logout', 'logout')->name('logout');
 });
-Route::group(['prefix' => 'admin', 'middleware'=>['CheckLoginUser']], function () {
+Route::group(['prefix' => 'admin', ], function () {
+    Route::controller(AdminController::class)->group(function () {
+        Route::get('/','index')->name('admin');
+    });
 
     Route::group(['prefix' => 'blog', 'as' =>'blog.'], function () {
         Route::controller(BlogController::class)->group(function () {
@@ -105,7 +111,7 @@ Route::group(['prefix' => 'admin', 'middleware'=>['CheckLoginUser']], function (
     Route::group(['prefix' => 'user', 'as' =>'user.'], function () {
         Route::controller(UserController::class)->group(function () {
             // danh sách
-            Route::get('/','index')->name('list');
+            Route::get('/list/{type}','index')->name('list');
 
             // thêm
             Route::get('/add', 'create')->name('add');
