@@ -32,6 +32,7 @@ class AuthController extends Controller
         ];
         if (Auth::attempt($credentials)) {
             return redirect()->route('transaction.index')->with('info','Bạn đã đăng nhập rồi');
+
         } else {
             return redirect()->back()->with('error','Sai thông tin');
         }

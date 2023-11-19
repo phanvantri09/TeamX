@@ -22,7 +22,7 @@
                             <div class="col-sm-12">
                                 <!-- text input -->
                                 <div class="form-group">
-                                    <label>Tên</label>
+                                    <label>Tiêu đề</label>
                                     <input type="text" name="name" class="form-control" placeholder="Enter ..."
                                         value="{{ old('name', $data->name) }}">
                                     @error('name')
@@ -32,40 +32,13 @@
                             </div>
                             <div class="col-sm-12">
                                 <div class="form-group">
-                                    <label>Nội dung xem trước</label>
+                                    <label>Nội dung </label>
 
-                                    <textarea class="form-control" name="content_pre" rows="3" placeholder="Enter ...">{{ empty(old('content_pre')) ? $data->content_pre : old('content_pre') }}</textarea>
-                                    @error('content_pre')
-                                        <div class="alert alert-danger">{{ $errors->first('content_pre') }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-sm-12">
-                                <div class="form-group">
-                                    <label>Nội dung chính</label>
-
-                                    <textarea name="content_main" rows="3" id="summernote" placeholder="Enter ...">{{ empty(old('content_main')) ? $data->content_main : old('content_main') }}</textarea>
+                                    <textarea name="content" rows="3" id="summernote" placeholder="Enter ...">{{ empty(old('content')) ? $data->content : old('content') }}</textarea>
                                     @error('content_main')
-                                        <div class="alert alert-danger">{{ $errors->first('content_main') }}</div>
+                                        <div class="alert alert-danger">{{ $errors->first('content') }}</div>
                                     @enderror
                                 </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <!-- select -->
-                                <div class="form-group">
-                                    <label>Loại</label>
-                                    <select name="id_category" class="form-control">
-                                        @foreach ($id_category as $key => $item)
-                                            <option {{$item->id ==$data->id_category ? 'selected' : ''}} value="{{ $item->id }}"> {{ $item->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                @error('id_category')
-                                    <div class="alert alert-danger">{{ $errors->first('id_category') }}</div>
-                                @enderror
                             </div>
                         </div>
                         <div class="row">

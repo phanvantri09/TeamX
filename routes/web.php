@@ -5,6 +5,10 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\HomeController;
+=======
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\BlogController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -29,6 +33,11 @@ Route::controller(AuthController::class)->group(function () {
     Route::get('/logout', 'logout')->name('logout');
 });
 Route::group(['prefix' => 'admin', 'middleware'=>['CheckAdmin']], function () {
+=======
+Route::group(['prefix' => 'admin', ], function () {
+    Route::controller(AdminController::class)->group(function () {
+        Route::get('/','index')->name('admin');
+    });
 
     Route::group(['prefix' => 'blog', 'as' =>'blog.'], function () {
         Route::controller(BlogController::class)->group(function () {
@@ -69,7 +78,6 @@ Route::group(['prefix' => 'admin', 'middleware'=>['CheckAdmin']], function () {
         });
     });
     Route::group(['prefix' => 'transaction', 'as' =>'transaction.'], function () {
-        try {
         Route::controller(TransactionController::class)->group(function () {
             // danh sách
 
@@ -91,9 +99,6 @@ Route::group(['prefix' => 'admin', 'middleware'=>['CheckAdmin']], function () {
 
             Route::get('change_status/{id}/{status}','changeStatus')->name('changeStatus');
         });
-    } catch (\Throwable $th) {
-        dd($th);
-   }
     });
     Route::group(['prefix' => 'brand', 'as' =>'brand.'], function () {
         Route::controller(BrandController::class)->group(function () {
@@ -118,7 +123,7 @@ Route::group(['prefix' => 'admin', 'middleware'=>['CheckAdmin']], function () {
     Route::group(['prefix' => 'user', 'as' =>'user.'], function () {
         Route::controller(UserController::class)->group(function () {
             // danh sách
-            Route::get('/','index')->name('list');
+            Route::get('/list/{type}','index')->name('list');
 
             // thêm
             Route::get('/add', 'create')->name('add');

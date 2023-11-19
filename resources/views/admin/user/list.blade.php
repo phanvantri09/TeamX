@@ -11,11 +11,11 @@
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">
-                        {{-- @isset($title)
+                        @isset($title)
                             {{ $title }}
                         @else
                             Chưa có tiêu đề cho trang này
-                        @endisset --}}
+                        @endisset
                     </h3>
                 </div>
                 <!-- /.card-header -->
@@ -23,37 +23,47 @@
                     <table id="example1" class="table table-bordered table-striped">
                         <thead>
                             <tr>
-                                <th>stt</th>
-                                <th>Tiêu đề</th>
-                                {{-- <th>Loại </th> --}}
-                                <th>Nội dung xem trước </th>
-                                <th>Ảnh </th>
+                                <th>STT</th>
+                                <th>Email</th>
+                                <th>Tên</th>
+                                <th>Số điện thoại </th>
+                                <th>Ngày tạo </th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($data as $key => $item)
+                            @php
+                                $i = 0;
+                            @endphp
+                            @foreach ($users as $item)
+                                @php
+                                    $i = $i + 1;
+                                @endphp
                                 <tr>
-                                    <td>{{ $key + 1 }}</td>
-                                    <td>{{$item->name}}</td>
-                                    
-                                    <td>{!! Str::limit($item->content, $limit = 50, $end = '...') !!}</td>
-                                    <td><img width="150px" height="auto" src="{{\App\Helpers\ConstCommon::getLinkImageToStorage($item->img) }}" alt=""></td>
+                                    <td>{{ $i }}</td>
+                                    <td>{{ $item->email }}</td>
+                                    <td>{{ $item->name }}</td>
+                                    <td>{{ $item->numberPhone }}</td>
+                                    <td>{{ $item->created_at }}</td>
                                     <td>
-                                        <a href="{{ route('blog.show', ['id'=>$item->id]) }}" class="btn btn-app">
-                                            <i class="fas fa-book-open"></i> Xem
-                                        </a>
-                                        <a  href="{{ route('blog.edit', ['id'=>$item->id]) }}" class="btn btn-app">
+
+                                        <!-- Button trigger modal -->
+                                        <button type="button" class="btn btn-primary" data-toggle="modal"
+                                            data-target="#exampleModalScrollable">
+                                            Xem
+                                        </button>
+
+                                        <a href="{{route('user.edit',['id' => $item->id])}}" class="btn btn-app">
                                             <i class="fas fa-edit"></i> Sửa
                                         </a>
-                                        <a href="{{ route('blog.delete', ['id'=>$item->id]) }}" class="btn btn-app">
+                                        <a href="{{route('user.delete',['id' => $item->id])}}" onclick="return confirm('Bạn có chắc chắn xóa không?')"
+                                            class="btn btn-app">
                                             <i class="fas fa-trash-alt"></i>Xóa
                                         </a>
 
                                     </td>
                                 </tr>
                             @endforeach
-
                         </tbody>
                         {{-- <tfoot>
                             <tr>
@@ -66,7 +76,30 @@
                             </tr>
                         </tfoot> --}}
                     </table>
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModalScrollable" tabindex="-1" role="dialog"
+                        aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-scrollable" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalScrollableTitle">Thông Tin
+                                        User</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    Số dư : {{ $item->balance }}
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    {{-- <button type="button" class="btn btn-primary">Save changes</button> --}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
                 <!-- /.card-body -->
             </div>
             <!-- /.card -->
