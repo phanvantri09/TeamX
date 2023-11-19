@@ -5,7 +5,6 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\HomeController;
-=======
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\BlogController;
@@ -33,8 +32,6 @@ Route::controller(AuthController::class)->group(function () {
     Route::get('/logout', 'logout')->name('logout');
 });
 Route::group(['prefix' => 'admin', 'middleware'=>['CheckAdmin']], function () {
-=======
-Route::group(['prefix' => 'admin', ], function () {
     Route::controller(AdminController::class)->group(function () {
         Route::get('/','index')->name('admin');
     });
