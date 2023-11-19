@@ -4,7 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 class Transaction extends Model
 {
     use HasFactory;
@@ -16,9 +17,14 @@ class Transaction extends Model
         'status',
         'img',
         'type',
+        'total'
     ];
-    public function user(): BelongsTo
+    public function user(): HasOne
     {
-        return $this->belongsTo(Brand::class, 'id_user');
+        return $this->hasOne(User::class, 'id');
+    }
+    public function services(): HasOne
+    {
+        return $this->hasOne(Service::class, 'id');
     }
 }

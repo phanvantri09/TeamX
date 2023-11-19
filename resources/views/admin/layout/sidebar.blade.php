@@ -128,19 +128,19 @@
                     <a   class="nav-link">
                         <i class="fas fa-boxes"></i>
                         <p>
-                            Loại
+                            Brand
                             <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ route('category.add') }}" class="nav-link">
+                            <a href="{{ route('brand.add') }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Thêm</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('category.index') }}" class="nav-link">
+                            <a href="{{ route('brand.index') }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Danh sách</p>
                             </a>
@@ -151,19 +151,19 @@
                     <a   class="nav-link">
                         <i class="fas fa-boxes"></i>
                         <p>
-                            Loại thành phần
+                            Dịch vụ
                             <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ route('category_item.add') }}" class="nav-link">
+                            <a href="{{ route('service.add') }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Thêm</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('category_item.index') }}" class="nav-link">
+                            <a href="{{ route('service.index') }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Danh sách</p>
                             </a>
@@ -174,42 +174,13 @@
                     <a   class="nav-link">
                         <i class="fas fa-glass-whiskey"></i>
                         <p>
-                            Sản phẩm
+                            Giao dịch
                             <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ route('product.add') }}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Thêm</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('product.index') }}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Danh sách</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a   class="nav-link">
-                        <i class="fas fa-glass-whiskey"></i>
-                        <p>
-                            Liên hệ
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{ route('contact.add') }}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Thêm</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('contact.index') }}" class="nav-link">
+                            <a href="{{ route('transaction.index') }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Danh sách</p>
                             </a>

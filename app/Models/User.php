@@ -8,6 +8,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
@@ -47,8 +50,8 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function transaction(): HasMany
+    public function transaction(): BelongsTo
     {
-        return $this->hasMany(Transaction::class);
+        return $this->belongsTo(Transaction::class, 'id_user');
     }
 }

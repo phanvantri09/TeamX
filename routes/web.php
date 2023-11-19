@@ -77,9 +77,8 @@ Route::group(['prefix' => 'admin', 'middleware'=>['CheckAdmin']], function () {
 
 
 
-            // thêm
-            // Route::get('/add', 'create')->name('add');
-            // Route::post('/add', 'store')->name('addPost');
+            Route::get('/add', 'create')->name('add');
+            Route::post('/add', 'store')->name('addPost');
 
             // //sửa
             // Route::get('edit/{id}','edit')->name('edit');

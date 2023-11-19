@@ -16,7 +16,7 @@
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
-                    <form action="{{ route('service.addPost') }}" method="post" enctype="multipart/form-data">
+                    <form action="{{ route('service.editPost', ['id'=>$data->id]) }}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="row">
                             <div class="col-sm-12">
@@ -24,7 +24,7 @@
                                 <div class="form-group">
                                     <label>Tên</label>
                                     <input type="text" name="name" class="form-control" placeholder="Enter ..."
-                                        value="{{ old('name') }}">
+                                        value="{{ old('name', $data->name) }}">
                                     @error('name')
                                         <div class="alert alert-danger">{{ $errors->first('name') }}</div>
                                     @enderror
@@ -34,7 +34,7 @@
                                 <div class="form-group">
                                     <label>Nội dung</label>
 
-                                    <textarea class="form-control" name="content" rows="3" placeholder="Enter ...">{{ empty(old('content_pre')) ? '' : old('content_pre') }}</textarea>
+                                    <textarea class="form-control" name="content" rows="3" placeholder="Enter ...">{{ empty(old('content', $data->content)) ? '' : old('content',$data->content) }}</textarea>
                                     @error('content')
                                         <div class="alert alert-danger">{{ $errors->first('content') }}</div>
                                     @enderror
@@ -45,7 +45,7 @@
                                 <div class="form-group">
                                     <label>Tiền(với số lượng 100)</label>
                                     <input type="number" name="price" class="form-control" placeholder="Enter ..."
-                                        value="{{ old('price') }}">
+                                        value="{{ old('price', $data->price) }}">
                                     @error('price')
                                         <div class="alert alert-danger">{{ $errors->first('price') }}</div>
                                     @enderror
@@ -62,7 +62,7 @@
                                     <label>Loại dịch vụ</label>
                                     <select name="id_brand" class="form-control">
                                         @foreach (\App\Helpers\ConstCommon::AllBrand() as $key => $item)
-                                            <option value="{{ $item->id }}"> {{ $item->name }}</option>
+                                            <option {{$item->id == $data->id_brand ? "selected" :'' }} value="{{ $item->id }}"> {{ $item->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>

@@ -3,8 +3,6 @@ namespace App\Repositories;
 
 use App\Models\Transaction;
 use App\Models\User;
-use App\Models\Bill;
-use App\Models\Cart;
 use Illuminate\Support\Facades\DB;
 use App\Helpers\ConstCommon;
 class TransactionRepository implements TransactionRepositoryInterface
@@ -21,95 +19,23 @@ class TransactionRepository implements TransactionRepositoryInterface
     {
         return Transaction::with('User')->where('type', $type)->orderBy('id', 'desc')->get();
     }
-    public function changeStatus($id,$idUser,$type,$status)
+    public function changeStatus($id, $status)
     {
 
         $trans = Transaction::find($id);
-        $bill = Bill::where('id_transaction', $trans->id)->first();
-        if (!empty($bill)) {
-            $cart = Cart::find($bill->id_cart);
-        }
-        $user = User::where('id',$idUser)->lockForUpdate()->first();
         DB::beginTransaction();
         try {
-            // Vừa tạo :
-                // Th1: trạng thái trước đó là thành công => trừ tiền trong ví
-                // Th2: trạng thái trước đó là từ chối => chỉ đổi trạng thái và không cập nhật tiền gì cả
-            // Thành công : tiền sẽ dc chuyển vào ví
-                // TH1: trạng thái trước đó là vừa tạo => + tiền vào ví
-                // TH2: trại thái trước đó là Từ chối => + tiền vào ví
-            // Từ chối :
-                // TH 1: trạng thái trước đó là vừa tạo => chỉ đổi trạng thái và không cập nhật tiền gì cả
-                // Th2: trạng thái trước đó là thành công => - tiền trong ví hiện tại
-
-            if ($trans->status != $status) {
-                if ($trans->status == 1) {
-                    if ($status == 2) {
-                        if($trans->type == 1 || $trans->type == 3 || $trans->type == 4){
-                            $user->balance = $user->balance - $trans->total;
-                            // if (!empty($user->email)) {
-                            //     ConstCommon::sendMail($user->email, ['email' => $user->email,'type'=>ConstCommon::TypeTransaction[$trans->type],'status'=> "Thành công", "balance"=>$trans->total, 'link'=>route('walet')]);
-                            // }
-                        }else{
-                            $user->balance = $user->balance + $trans->total;
-                            // if (!empty($user->email)) {
-                            //     ConstCommon::sendMail($user->email, ['email' => $user->email,'type'=>ConstCommon::TypeTransaction[$trans->type],'status'=> "Thành công", "balance"=>$trans->total, 'link'=>route('walet')]);
-                            // }
-                        }
-                    } else {
-                        // if (!empty($user->email)) {
-                        //     ConstCommon::sendMail(
-                        //         $user->email,
-                        //         ['email' => $user->email,'type'=> ConstCommon::TypeTransaction[$trans->type],'status'=> "Bị từ chối" , "balance"=>$trans->total, 'link'=>route('walet')]
-                        //     );
-                        // }
-                    }
-                }
-
-                if ($trans->status == 2) {
-                    if($trans->type == 1 || $trans->type == 3 || $trans->type == 4){
-                        $user->balance = $user->balance + $trans->total;
-                        // if (!empty($user->email)) {
-                        //     ConstCommon::sendMail($user->email, ['email' => $user->email,'type'=>ConstCommon::TypeTransaction[$trans->type],'status'=> "Thành công", "balance"=>$trans->total, 'link'=>route('walet')]);
-                        // }
-                    } else {
-                        $user->balance = $user->balance - $trans->total;
-                        // if (!empty($user->email)) {
-                        //     ConstCommon::sendMail($user->email, ['email' => $user->email,'type'=>ConstCommon::TypeTransaction[$trans->type],'status'=> "Thành công", "balance"=>$trans->total, 'link'=>route('walet')]);
-                        // }
-                    }
-                }
-
-                if ($trans->status == 3) {
-                    // từ chối sang  chấp nhận thì cộng tiền
-                    if ($status == 2) {
-                        if($trans->type == 1 || $trans->type == 3 || $trans->type == 4){
-                            $user->balance = $user->balance - $trans->total;
-                            // if (!empty($user->email)) {
-                            //     ConstCommon::sendMail($user->email, ['email' => $user->email,'type'=>ConstCommon::TypeTransaction[$trans->type],'status'=> "Thành công", "balance"=>$trans->total, 'link'=>route('walet')]);
-                            // }
-                        } else {
-                            $user->balance = $user->balance + $trans->total;
-                            // if (!empty($user->email)) {
-                            //     ConstCommon::sendMail($user->email, ['email' => $user->email,'type'=>ConstCommon::TypeTransaction[$trans->type],'status'=> "Thành công", "balance"=>$trans->total, 'link'=>route('walet')]);
-                            // }
-                        }
-                    }
-                }
-
-                $trans->update(['status' => $status]);
-                $user->save();
-
-            }
-            $user->save();
+            $trans->status = $status;
+            $trans->save();
             DB::commit();
         } catch (\Exception $e){
             // report($e);
             DB::rollBack();
-            ConstCommon::sendMail($user->email, ['email' => $user->email,'type'=>'nạp/rút tiền','status'=> "Không thành công", "balance"=>$trans->total, 'link'=>route('walet')]);
+            // ConstCommon::sendMail($user->email, ['email' => $user->email,'type'=>'nạp/rút tiền','status'=> "Không thành công", "balance"=>$trans->total, 'link'=>route('walet')]);
             return false;
         }
         return true;
+
     }
     public function update(array $data, $id)
     {

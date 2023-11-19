@@ -16,58 +16,69 @@
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
-                    <form action="{{ route('service.addPost') }}" method="post" enctype="multipart/form-data">
+                    <form action="{{ route('transaction.addPost') }}" method="post" enctype="multipart/form-data">
                         @csrf
+                        <input type="hidden" name="id_user" value="{{Auth::user()->id}}">
+                        <input  type="hidden" name="img" value="{{null}}">
                         <div class="row">
                             <div class="col-sm-12">
                                 <!-- text input -->
                                 <div class="form-group">
-                                    <label>Tên</label>
-                                    <input type="text" name="name" class="form-control" placeholder="Enter ..."
-                                        value="{{ old('name') }}">
-                                    @error('name')
-                                        <div class="alert alert-danger">{{ $errors->first('name') }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-sm-12">
-                                <div class="form-group">
-                                    <label>Nội dung</label>
-
-                                    <textarea class="form-control" name="content" rows="3" placeholder="Enter ...">{{ empty(old('content_pre')) ? '' : old('content_pre') }}</textarea>
-                                    @error('content')
-                                        <div class="alert alert-danger">{{ $errors->first('content') }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-sm-12">
-                                <!-- text input -->
-                                <div class="form-group">
-                                    <label>Tiền(với số lượng 100)</label>
-                                    <input type="number" name="price" class="form-control" placeholder="Enter ..."
-                                        value="{{ old('price') }}">
-                                    @error('price')
-                                        <div class="alert alert-danger">{{ $errors->first('price') }}</div>
+                                    <label>Số lượng</label>
+                                    <input type="text" name="total" class="form-control" placeholder="Enter ..."
+                                        value="{{ old('total') }}">
+                                    @error('total')
+                                        <div class="alert alert-danger">{{ $errors->first('total') }}</div>
                                     @enderror
                                 </div>
                             </div>
                         </div>
 
-
-
                         <div class="row">
                             <div class="col-sm-12">
                                 <!-- select -->
                                 <div class="form-group">
-                                    <label>Loại dịch vụ</label>
-                                    <select name="id_brand" class="form-control">
-                                        @foreach (\App\Helpers\ConstCommon::AllBrand() as $key => $item)
+                                    <label>Loại giao dịch</label>
+                                    <select name="type" class="form-control">
+                                        @foreach (\App\Helpers\ConstCommon::ListTypeTransaction as $key => $item)
+                                            <option value="{{ $key}}"> {{ $item }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                @error('type')
+                                    <div class="alert alert-danger">{{ $errors->first('type') }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <!-- select -->
+                                <div class="form-group">
+                                    <label>Dịch vụ</label>
+                                    <select name="id_service" class="form-control">
+                                        @foreach (\App\Helpers\ConstCommon::AllService() as $key => $item)
                                             <option value="{{ $item->id }}"> {{ $item->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
-                                @error('id_brand')
-                                    <div class="alert alert-danger">{{ $errors->first('id_brand') }}</div>
+                                @error('id_service')
+                                    <div class="alert alert-danger">{{ $errors->first('id_service') }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <!-- select -->
+                                <div class="form-group">
+                                    <label>Trạng thái ban đầu</label>
+                                    <select name="status" class="form-control">
+                                        @foreach (\App\Helpers\ConstCommon::StatusTransaction as $key => $item)
+                                            <option value="{{ $key }}"> {{ $item }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                @error('status')
+                                    <div class="alert alert-danger">{{ $errors->first('status') }}</div>
                                 @enderror
                             </div>
                         </div>

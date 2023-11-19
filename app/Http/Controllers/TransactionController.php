@@ -16,59 +16,33 @@ class TransactionController extends Controller
 
     public function index(Request $request)
     {
-        // if ($request->has('type')) {
-        //     $getAllTrans = $this->transactionRepository->getByStatus($request->type);
-        // } else {
-        //     $getAllTrans = $this->transactionRepository->all();
-        // }
+        if ($request->has('type')) {
+            $getAllTrans = $this->transactionRepository->getByStatus($request->type);
+        } else {
+            $getAllTrans = $this->transactionRepository->all();
+        }
+
         return view('admin.transaction.list', compact('getAllTrans'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    public function changeStatus($id, $status)
+    {
+        if ($this->transactionRepository->changeStatus($id, $status)) {
+            return back()->with('message', 'Thành Công');
+        } else {
+            return back()->with('error', 'Lỗi tiến trình');
+        }
+    }
     public function create()
     {
-        //
+        return view('admin.transaction.add');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
-    }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Transaction $transaction)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Transaction $transaction)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Transaction $transaction)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Transaction $transaction)
-    {
-        //
+        $data = $request->all();
+        $this->transactionRepository->create($data);
+        return redirect()->route('transaction.index')->with('success', 'Thành công');
     }
 }

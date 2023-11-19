@@ -36,9 +36,9 @@
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
                                     <td>{{$item->name}}</td>
-                                    <td></td>
+                                    <td>{{\App\Helpers\ConstCommon::TypeBrand($item->id_brand ?? null, $item->id_brand ?? null)}}</td>
                                     <td>{{$item->content}}</td>
-                                    <td>{{$item->price}}</td>
+                                    <td>{{number_format($item->price)}}</td>
                                     <td>
                                         <a href="{{ route('service.show', ['id'=>$item->id]) }}" class="btn btn-app">
                                             <i class="fas fa-book-open"></i> Xem
@@ -55,16 +55,6 @@
                             @endforeach
 
                         </tbody>
-                        {{-- <tfoot>
-                            <tr>
-                                <th>Rendering engine</th>
-                                <th>Browser</th>
-                                <th>Platform(s)</th>
-                                <th>Engine version</th>
-                                <th>CSS grade</th>
-                                <th>acttion</th>
-                            </tr>
-                        </tfoot> --}}
                     </table>
                 </div>
                 <!-- /.card-body -->

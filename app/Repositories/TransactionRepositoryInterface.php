@@ -6,7 +6,7 @@ interface TransactionRepositoryInterface
      public function create(array $data);
      public function all();
 
-     public function changeStatus($id,$idUser,$type, $status);
+     public function changeStatus($id, $status);
      public function update(array $data, $id);
      public function listForUser($id_user);
      public function getByStatus($type);

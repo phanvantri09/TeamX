@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Transaction;
 use App\Models\Brand;
+use App\Models\Service;
 class ConstCommon {
     const ListTypeUser = ['user'=>111, 'admin'=>222];
     const TypeUser = 111;
@@ -19,8 +20,9 @@ class ConstCommon {
     // 1 là vừa book, 2 đã chấp nhận đang chạy, 3 chạy đã xong, 4 từ chối
     const ListStatusTransaction = ['1'=>"Vừa book",  '2'=>"đã chấp nhận đang chạy", '3'=>"Chạy đã xong hoàn thành", '4'=>"từ chối", ];
     // 1 là của service, 2 nộp , 3 rút
-    const ListTypeTransaction = ['1'=>"service",  '2'=>"nộp", '3'=>"rút"];
-
+    const ListTypeTransaction = ['1'=>"social",  '2'=>"nộp", '3'=>"rút"];
+    // '1 là vừa book, 2 đã chấp nhận đang chạy, 3 chạy đã xong, 4 từ chối'
+    const StatusTransaction = ['1'=>"Vừa tạo",  '2'=>"Admin đã kiểm tra và giao dịch đang chạy", '3'=>"Hoàn thành", '4'=>"Từ chối vì không đủ thông tin"];
     public static function addImageToStorage($file, $name ){
         $file->storeAs('images', $name, 'public');
     }
@@ -51,5 +53,16 @@ class ConstCommon {
     }
     public static function AllBrand(){
         return Brand::all();
+    }
+    public static function AllService(){
+        return Service::all();
+    }
+    public static function TypeBrand($id = null, $code = null){
+        if (!empty($id)) {
+            return Brand::find($id)->name;
+        }
+        if (!empty($code)) {
+            return Brand::where('code', $code)->first()->name;
+        }
     }
 }

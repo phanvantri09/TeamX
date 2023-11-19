@@ -4,7 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 class Service extends Model
 {
     use HasFactory;
@@ -21,4 +22,8 @@ class Service extends Model
         return $this->belongsTo(Brand::class, 'id_brand');
     }
 
+    public function transactions(): BelongsTo
+    {
+        return $this->belongsTo(Transaction::class, 'id_service');
+    }
 }
