@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->integer('id_service')->nullable();
             $table->integer('id_user');
+            $table->integer('total');
             $table->integer('status')->comment('1 là vừa book, 2 đã chấp nhận đang chạy, 3 chạy đã xong, 4 từ chối');
             $table->string('img')->nullable();
             $table->integer('type')->comment('1 là của service, 2 nộp , 3 rút');

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->integer('id_brand')->nullable();
             $table->string('name')->unique();
-            $table->text('content')->nullable();
+            $table->longText('content')->nullable();
             $table->integer('price')->comment('it nhất là 100, hệ số là price đại diện cho số lượng 100 từ đó nhân hệ số từ input nta nhập vào');
             $table->timestamps();
         });

@@ -24,12 +24,31 @@ Route::get('/', function () {
 });
 Route::controller(HomeController::class)->group(function () {
     Route::get('/','home')->name('home');
+    //dịch vụ
+    Route::get('/service','service')->name('service');
+    // thông tin người dùng
+    Route::get('/info','info')->name('info');
+    // danh sách blog [làm sau]
+    Route::get('/blog','blog')->name('blog');
+    // thông tin blog [làm sau]
+    Route::get('/blogPost/{title}','blogPost')->name('blogPost');
+    // lịch sử giao dịch của user
+    Route::get('/history','history')->name('history');
+    // liên hệ
+    Route::get('/contact','contact')->name('contact');
+    Route::post('/contactPost','contactPost')->name('contactPost');
+    //
+    Route::get('/transactionUser','transactionUser')->name('transactionUser');
+    Route::post('/transactionUserPost','transactionUserPost')->name('transactionUserPost');
 });
 
 Route::controller(AuthController::class)->group(function () {
     Route::get('/login','login')->name('login');
     Route::post('/login','loginPost')->name('login');
     Route::get('/logout', 'logout')->name('logout');
+
+    Route::get('/register','register')->name('register');
+    Route::post('/registerPost','registerPost')->name('registerPost');
 });
 Route::group(['prefix' => 'admin', 'middleware'=>['CheckAdmin']], function () {
     Route::controller(AdminController::class)->group(function () {
