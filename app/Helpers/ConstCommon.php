@@ -14,7 +14,9 @@ use App\Models\Transaction;
 use App\Models\Brand;
 use App\Models\Service;
 class ConstCommon {
-    const ListTypeUser = ['user'=>111, 'admin'=>222];
+    const ListTypeUser = ['user'=>111, 'Đại lí 1'=>222, 'Đại lí 2'=>333 , 'Đại lí 3'=>444, 'Admin'=>999];
+    // % ăn ref của người dùng
+    const ListRefByUser = ['111'=>2, '222'=>4, '333'=>6 , '444'=>8];
     const TypeUser = 111;
     const TypeAdmin = 222;
     // 1 là vừa book, 2 đã chấp nhận đang chạy, 3 chạy đã xong, 4 từ chối

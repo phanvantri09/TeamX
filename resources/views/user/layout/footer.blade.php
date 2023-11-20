@@ -1,6 +1,6 @@
 <footer id="footer">
-    <div class="container py-md-5 py-3">
-        <div class="footer_wrap1 row align-items-center justify-content-md-start justify-content-center pb-4">
+    <div class="container py-2">
+        <div class="footer_wrap1 row align-items-center justify-content-md-start justify-content-center pb-md-4 pb-2">
             <div class="footer_item col-md-2 col-sm-4 col-4">
                 <img src="./image/logo_zalopay.png" class="img_logo" alt="">
             </div>
@@ -25,8 +25,8 @@
                 </div>
             </div>
         </div>
-        <div class="footer_wrap2 row py-4 justify-content-center">
-            © Copyright 2022 buffviewx.coms &nbsp;|&nbsp; <a href="">Câu hỏi thường gặp</a>&nbsp;|&nbsp;<a
+        <div class="footer_wrap2 row py-md-4 py-2 justify-content-center">
+            © Copyright 2022 abc.coms &nbsp;|&nbsp; <a href="">Câu hỏi thường gặp</a>&nbsp;|&nbsp;<a
                 href="">Dịch vụ</a>&nbsp;|&nbsp;<a href="">Chính sách bảo mật</a> &nbsp;|&nbsp; <a href="">Về chúng
                 tôi</a>
         </div>

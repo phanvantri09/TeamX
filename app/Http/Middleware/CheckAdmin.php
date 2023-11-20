@@ -18,7 +18,7 @@ class CheckAdmin
     public function handle(Request $request, Closure $next)
     {
         if(Auth::check()){
-            if (Auth::user()->type != 111) {
+            if (Auth::user()->type == 999) {
                 return $next($request);
             } else {
                 return redirect()->route('home')->with('warning', 'Bạn không thể truy cập trang web này');
@@ -26,6 +26,5 @@ class CheckAdmin
         } else {
             return redirect()->route('login')->with('warning', 'Bạn không thể truy cập trang web này');
         }
-        
     }
 }

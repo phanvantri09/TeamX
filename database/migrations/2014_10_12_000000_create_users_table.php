@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->integer('balance')->default(0);
-            $table->integer('type')->default(111)->comment("111 user bình thường, 222 user admin");
+            $table->integer('type')->default(111)->comment("111 user bình thường, 222 đại lí 1, 333 đại lí 2, 444 đại lí 3, 999 admin");
             $table->string('name')->nullable();
             $table->string('email')->unique();
             $table->string('numberPhone')->nullable();
