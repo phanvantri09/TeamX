@@ -29,7 +29,9 @@ class HomeController extends Controller
         return view('user.page.home');
     }
     public function service(){
-        return view('user.page.service');
+        $brands = $this->ServiceRepository->getServiceByBrand();
+        //dd($brands);
+        return view('user.page.service',compact('brands'));
     }
     public function info(){
         return view('user.page.info');

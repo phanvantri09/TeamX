@@ -1,6 +1,7 @@
 <?php
 namespace App\Repositories;
 
+use App\Models\Brand;
 use App\Models\Transaction;
 use App\Models\Service;
 class ServiceRepository implements ServiceRepositoryInterface
@@ -31,5 +32,9 @@ class ServiceRepository implements ServiceRepositoryInterface
     public function show($id)
     {
         return Service::findOrFail($id);
+    }
+    public function getServiceByBrand(){
+        return Brand::with('services')->get();
+            
     }
 }
